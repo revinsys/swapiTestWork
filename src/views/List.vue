@@ -69,6 +69,7 @@ export default {
     ...mapActions('starships', ['getStarships']),
     ...mapMutations('starships', ['setPage', 'setSearchText']),
     search () {
+      this.setPage(1)
       this.$router.push({
         path: '/',
         query: {
