@@ -8,10 +8,10 @@ export class StarshipsService {
     this.baseURL = 'https://swapi.co/api'
   }
 
-  async getStarshipList (url = '/starships') {
-    const starshipsResponse = await fetch(`${this.baseURL}${url}`).then(res =>
-      res.json()
-    )
+  async getStarshipList (page = 1) {
+    const starshipsResponse = await fetch(
+      `${this.baseURL}/starships/?page=${page}`
+    ).then(res => res.json())
 
     if (validateStarships(starshipsResponse.results)) {
       return starshipsResponse
