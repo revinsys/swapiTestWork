@@ -5,6 +5,7 @@ export const starshipsState = {
     previous: null,
     next: null
   },
+  search: null,
   page: 1
 }
 

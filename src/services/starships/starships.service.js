@@ -8,20 +8,26 @@ export class StarshipsService {
     this.baseURL = 'https://swapi.co/api'
   }
 
-  async getStarshipList (page = 1) {
-    const starshipsResponse = await fetch(
-      `${this.baseURL}/starships/?page=${page}`
-    ).then(res => res.json())
-
-    if (validateStarships(starshipsResponse.results)) {
-      return starshipsResponse
+  async getStarshipList (page = 1, search = null) {
+    let url = `${this.baseURL}/starships/?page=${page}`
+    if (search !== null) {
+      url += `&search=${search}`
     }
-    console.error('Validate failed')
-    return {
-      results: [],
-      previous: null,
-      next: null,
-      count: 0
+    try {
+      const starshipsResponse = await fetch(url).then(res => res.json())
+
+      if (validateStarships(starshipsResponse.results)) {
+        return starshipsResponse
+      }
+      throw new Error('Validate failed')
+    } catch (e) {
+      console.error(e)
+      return {
+        results: [],
+        previous: null,
+        next: null,
+        count: 0
+      }
     }
   }
 

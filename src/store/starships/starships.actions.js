@@ -2,8 +2,8 @@ import { starshipsService } from 'Services/starships/starships.service'
 
 export const starshipsActions = {
   async getStarships ({ commit, state }) {
-    const { page } = state
-    const starshipsResult = await starshipsService.getStarshipList(page)
+    const { page, search } = state
+    const starshipsResult = await starshipsService.getStarshipList(page, search)
     const { results, ...paginations } = starshipsResult
     commit('setStarships', results)
     commit('setPaginations', paginations)
